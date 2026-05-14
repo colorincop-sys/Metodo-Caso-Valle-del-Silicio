@@ -1,0 +1,29 @@
+INICIO
+
+ESCRIBIR "Introduce el número de canciones:"
+LEER n
+
+SI n <= 0 ENTONCES
+    ESCRIBIR "Error: número inválido"
+    TERMINAR
+FIN SI
+
+PARA i = 0 HASTA n-1 HACER
+    ESCRIBIR "Introduce canción ", i+1
+    LEER listaCanciones[i]
+FIN PARA
+
+PARA i = n-1 HASTA 1 HACER
+    j = RANDOM(0, i)
+
+    temp = listaCanciones[i]
+    listaCanciones[i] = listaCanciones[j]
+    listaCanciones[j] = temp
+FIN PARA
+
+ESCRIBIR "Lista aleatoria:"
+PARA i = 0 HASTA n-1 HACER
+    ESCRIBIR listaCanciones[i]
+FIN PARA
+
+FIN
