@@ -1,0 +1,46 @@
+// ALGORITMO: Mezcla_Aleatoria_Canciones
+// OBJETIVO: Optimizar la aleatoriedad en la gestión de listas de reproducción.
+// AUTOR: Corin Merino Castro
+
+INICIO
+    // DECLARACIÓN DE CONSTANTES Y VARIABLES (Ámbito Global y Local) 
+    CONSTANTE ENTERO MAX_CANCIONES = 100
+    ENTERO lista_canciones[MAX_CANCIONES]
+    ENTERO i, j, temp, num_actual_canciones
+    REAL rendimiento_previo = 75.5  // Dato cuantitativo de rendimiento anterior [cite: 1481, 1483]
+
+    // ENTRADA DE INFORMACIÓN (GUI/Consola)
+    ESCRIBIR "Ingrese el número de canciones a mezclar (máx 100):"
+    LEER num_actual_canciones
+
+    // Validación de entrada (Estructura de control) [cite: 1485]
+    SI (num_actual_canciones > 0 Y num_actual_canciones <= MAX_CANCIONES) ENTONCES
+        
+        // Inicialización de la lista
+        PARA i DESDE 0 HASTA num_actual_canciones - 1 HACER
+            lista_canciones[i] = i + 1
+        FIN_PARA
+
+        // PROCESO: Algoritmo Shuffle (Diseño Estructurado) [cite: 1504]
+        // Se utiliza un bucle para recorrer la lista de atrás hacia adelante
+        PARA i DESDE num_actual_canciones - 1 HASTA 1 HACER
+            // Generar índice aleatorio 'j' entre 0 e 'i'
+            j = ALEATORIO(0, i)
+            
+            // Intercambio de valores (Swap)
+            temp = lista_canciones[i]
+            lista_canciones[i] = lista_canciones[j]
+            lista_canciones[j] = temp
+        FIN_PARA
+
+        // SALIDA DE INFORMACIÓN
+        ESCRIBIR "Lista de canciones mezclada con éxito:"
+        PARA i DESDE 0 HASTA num_actual_canciones - 1 HACER
+            ESCRIBIR "Posición ", i+1, ": Canción ID ", lista_canciones[i]
+        FIN_PARA
+
+    SINO
+        ESCRIBIR "Error: Cantidad de canciones no válida."
+    FIN_SI
+
+FIN
