@@ -1,0 +1,7 @@
+
+CONSTANTE MAX_CANCIONES = 100
+ENTERO n               // número de canciones
+ARREGLO listaCanciones[MAX_CANCIONES]
+ENTERO i
+REAL rendimientoAntes
+REAL rendimientoDespues
