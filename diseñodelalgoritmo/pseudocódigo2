@@ -1,46 +1,84 @@
-// ALGORITMO: Mezcla_Aleatoria_Canciones
+// ALGORITMO: Sistema_Mezcla_Aleatoria_Valle_Silicio
 // OBJETIVO: Optimizar la aleatoriedad en la gestión de listas de reproducción.
 // AUTOR: Corin Merino Castro
 
-INICIO
-    // DECLARACIÓN DE CONSTANTES Y VARIABLES (Ámbito Global y Local) 
+    // DECLARACIÓN DE CONSTANTES (Buenas prácticas de programación)
     CONSTANTE ENTERO MAX_CANCIONES = 100
-    ENTERO lista_canciones[MAX_CANCIONES]
-    ENTERO i, j, temp, num_actual_canciones
-    REAL rendimiento_previo = 75.5  // Dato cuantitativo de rendimiento anterior [cite: 1481, 1483]
 
-    // ENTRADA DE INFORMACIÓN (GUI/Consola)
-    ESCRIBIR "Ingrese el número de canciones a mezclar (máx 100):"
-    LEER num_actual_canciones
+    // DECLARACIÓN DE VARIABLES GLOBALES (Ámbito global)
+    CADENA lista_canciones[MAX_CANCIONES]
+    ENTERO total_canciones = 0
+    ENTERO opcion_menu = 0
 
-    // Validación de entrada (Estructura de control) [cite: 1485]
-    SI (num_actual_canciones > 0 Y num_actual_canciones <= MAX_CANCIONES) ENTONCES
-        
-        // Inicialización de la lista
-        PARA i DESDE 0 HASTA num_actual_canciones - 1 HACER
-            lista_canciones[i] = i + 1
-        FIN_PARA
+INICIO
+    // BUCLE PRINCIPAL DE LA INTERFAZ
+    REPETIR
+        // REPRESENTACIÓN VISUAL DE LA GUI (Salida de información)
+        ESCRIBIR "----------------------------------"
+        ESCRIBIR "  SISTEMA DE MEZCLA DE CANCIONES  "
+        ESCRIBIR "----------------------------------"
+        ESCRIBIR "1. Introducir número de canciones"
+        ESCRIBIR "2. Introducir canciones"
+        ESCRIBIR "3. Mezclar canciones"
+        ESCRIBIR "4. Mostrar lista"
+        ESCRIBIR "5. Salir"
+        ESCRIBIR "----------------------------------"
+        ESCRIBIR "Seleccione una opción: "
+        LEER opcion_menu
 
-        // PROCESO: Algoritmo Shuffle (Diseño Estructurado) [cite: 1504]
-        // Se utiliza un bucle para recorrer la lista de atrás hacia adelante
-        PARA i DESDE num_actual_canciones - 1 HASTA 1 HACER
-            // Generar índice aleatorio 'j' entre 0 e 'i'
-            j = ALEATORIO(0, i)
+        SEGÚN opcion_menu HACER
             
-            // Intercambio de valores (Swap)
-            temp = lista_canciones[i]
-            lista_canciones[i] = lista_canciones[j]
-            lista_canciones[j] = temp
-        FIN_PARA
+            CASO 1: // Fase de Análisis/Entrada
+                ESCRIBIR "Indique cuántas canciones desea gestionar (Máx 100): "
+                LEER total_canciones
+                SI (total_canciones < 1 O total_canciones > MAX_CANCIONES) ENTONCES
+                    ESCRIBIR "Error: Cantidad no válida."
+                    total_canciones = 0
+                FIN_SI
 
-        // SALIDA DE INFORMACIÓN
-        ESCRIBIR "Lista de canciones mezclada con éxito:"
-        PARA i DESDE 0 HASTA num_actual_canciones - 1 HACER
-            ESCRIBIR "Posición ", i+1, ": Canción ID ", lista_canciones[i]
-        FIN_PARA
+            CASO 2: // Llenado de datos
+                SI (total_canciones > 0) ENTONCES
+                    PARA i DESDE 0 HASTA total_canciones - 1 HACER
+                        ESCRIBIR "Nombre de la canción ", i + 1, ": "
+                        LEER lista_canciones[i]
+                    FIN_PARA
+                SINO
+                    ESCRIBIR "Primero debe indicar el número de canciones (Opción 1)."
+                FIN_SI
 
-    SINO
-        ESCRIBIR "Error: Cantidad de canciones no válida."
-    FIN_SI
+            CASO 3: // PROCESO: Algoritmo de mezcla (Shuffle)
+                SI (total_canciones > 1) ENTONCES
+                    // Implementación lógica basada en el intercambio aleatorio
+                    PARA i DESDE total_canciones - 1 HASTA 1 HACER
+                        ENTERO j = ALEATORIO(0, i) // Genera índice aleatorio
+                        // Operación de intercambio (Swap)
+                        CADENA temporal = lista_canciones[i]
+                        lista_canciones[i] = lista_canciones[j]
+                        lista_canciones[j] = temporal
+                    FIN_PARA
+                    ESCRIBIR "¡Mezcla completada con éxito!"
+                SINO
+                    ESCRIBIR "No hay suficientes canciones para mezclar."
+                FIN_SI
 
-FIN
+            CASO 4: // Salida de información (Despliegue)
+                SI (total_canciones > 0) ENTONCES
+                    ESCRIBIR "--- LISTA ACTUAL DE REPRODUCCIÓN ---"
+                    PARA i DESDE 0 HASTA total_canciones - 1 HACER
+                        ESCRIBIR i + 1, ". ", lista_canciones[i]
+                    FIN_PARA
+                SINO
+                    ESCRIBIR "La lista está vacía."
+                FIN_SI
+
+            CASO 5:
+                ESCRIBIR "Saliendo del sistema..."
+
+            DE OTRO MODO:
+                ESCRIBIR "Opción no válida, intente de nuevo."
+
+        FIN_SEGÚN
+
+    HASTA QUE opcion_menu == 5
+
+FIN_ALGORITMO
