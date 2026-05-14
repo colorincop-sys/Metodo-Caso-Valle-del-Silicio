@@ -1,3 +1,4 @@
+```mermaid
 flowchart TD
 
 A[INICIO] --> B["Leer número (n)"]
@@ -11,3 +12,4 @@ C -- SI --> F[Introducir canciones]
 F --> G[Aplicar Fisher-Yates]
 G --> H[Mostrar lista final]
 H --> E[FIN]
+```
